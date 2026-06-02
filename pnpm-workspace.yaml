@@ -1,2 +1,8 @@
 packages:
   - "packages/*"
+allowBuilds:
+  '@google/genai': false
+  esbuild: true
+  openclaw: false
+  protobufjs: false
+  tree-sitter-bash: false

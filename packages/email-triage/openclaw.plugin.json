@@ -1,0 +1,7 @@
+{
+  "id": "email-triage",
+  "name": "Email Triage",
+  "description": "Triage unread email: urgency, tags, spam, summaries, and draft replies.",
+  "configSchema": { "type": "object", "additionalProperties": true },
+  "contracts": { "tools": ["triage_inbox"] }
+}
