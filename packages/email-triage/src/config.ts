@@ -16,8 +16,31 @@ export const ImapAccountSchema = Type.Object(
   { additionalProperties: false },
 );
 
-// P2 will union gmail/composio account schemas here.
-export const AccountSchema = ImapAccountSchema;
+export const GmailAccountSchema = Type.Object(
+  {
+    id: Type.String(),
+    provider: Type.Literal("gmail"),
+    user: Type.String(), // the gmail address (used as the From)
+    clientId: Type.String(),
+    clientSecret: Type.String(),
+    refreshToken: Type.String(),
+  },
+  { additionalProperties: false },
+);
+
+export const ComposioAccountSchema = Type.Object(
+  {
+    id: Type.String(),
+    provider: Type.Literal("composio"),
+    user: Type.String(), // mailbox address (used as the From)
+    apiKey: Type.String(),
+    connectedAccountId: Type.String(),
+    baseUrl: Type.Optional(Type.String()),
+  },
+  { additionalProperties: false },
+);
+
+export const AccountSchema = Type.Union([ImapAccountSchema, GmailAccountSchema, ComposioAccountSchema]);
 
 export const ConfigSchema = Type.Object(
   {
@@ -33,5 +56,7 @@ export const ConfigSchema = Type.Object(
 );
 
 export type ImapAccount = Static<typeof ImapAccountSchema>;
+export type GmailAccount = Static<typeof GmailAccountSchema>;
+export type ComposioAccount = Static<typeof ComposioAccountSchema>;
 export type AccountConfig = Static<typeof AccountSchema>;
 export type Config = Static<typeof ConfigSchema>;
