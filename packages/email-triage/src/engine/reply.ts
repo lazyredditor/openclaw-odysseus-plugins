@@ -1,15 +1,7 @@
 import type { Mail, MailProvider } from "../providers/types.js";
 import type { LlmFn } from "./classify.js";
 import { REPLY_SYSTEM_PROMPT } from "../prompts.js";
-import { stripThink } from "../parse.js";
-
-function extractMarked(text: string, open: string, close: string): string {
-  const t = stripThink(text);
-  const i = t.indexOf(open);
-  const j = t.indexOf(close);
-  if (i !== -1 && j !== -1 && j > i) return t.slice(i + open.length, j).trim();
-  return t.trim();
-}
+import { extractMarked } from "../parse.js";
 
 /** Produce a style-matched draft. Never sends. */
 export async function draftReply(mail: Mail, style: string, llm: LlmFn): Promise<string> {

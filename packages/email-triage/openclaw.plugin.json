@@ -2,6 +2,39 @@
   "id": "email-triage",
   "name": "Email Triage",
   "description": "Triage unread email: urgency, tags, spam, summaries, and draft replies.",
-  "configSchema": { "type": "object", "additionalProperties": true },
-  "contracts": { "tools": ["triage_inbox"] }
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["accounts"],
+    "properties": {
+      "accounts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "provider", "host", "user", "pass"],
+          "properties": {
+            "id": { "type": "string" },
+            "provider": { "const": "imap" },
+            "host": { "type": "string" },
+            "port": { "type": "number" },
+            "secure": { "type": "boolean" },
+            "user": { "type": "string" },
+            "pass": { "type": "string" },
+            "smtpHost": { "type": "string" },
+            "smtpPort": { "type": "number" },
+            "from": { "type": "string" }
+          }
+        }
+      },
+      "scanWindowDays": { "type": "number" },
+      "urgencyRules": { "type": "string" },
+      "alertThreshold": { "type": "number" },
+      "model": { "type": ["string", "null"] },
+      "spamMove": { "type": "boolean" },
+      "selfHeader": { "type": "string" }
+    }
+  },
+  "contracts": { "tools": ["triage_inbox", "summarize_email", "draft_reply", "send_reply", "set_writing_style"] },
+  "skills": ["./skills"]
 }

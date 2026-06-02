@@ -5,6 +5,16 @@ export function stripThink(text: string): string {
   return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 }
 
+/** Return the text between `open` and `close` markers (after stripping reasoning).
+ *  Falls back to the whole stripped text when markers are absent. */
+export function extractMarked(text: string, open: string, close: string): string {
+  const t = stripThink(text);
+  const i = t.indexOf(open);
+  const j = t.indexOf(close);
+  if (i !== -1 && j !== -1 && j > i) return t.slice(i + open.length, j).trim();
+  return t.trim();
+}
+
 function firstJsonObject(text: string): string | null {
   const start = text.indexOf("{");
   if (start === -1) return null;
