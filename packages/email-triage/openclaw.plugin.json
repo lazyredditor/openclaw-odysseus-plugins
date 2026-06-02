@@ -10,21 +10,51 @@
       "accounts": {
         "type": "array",
         "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["id", "provider", "host", "user", "pass"],
-          "properties": {
-            "id": { "type": "string" },
-            "provider": { "const": "imap" },
-            "host": { "type": "string" },
-            "port": { "type": "number" },
-            "secure": { "type": "boolean" },
-            "user": { "type": "string" },
-            "pass": { "type": "string" },
-            "smtpHost": { "type": "string" },
-            "smtpPort": { "type": "number" },
-            "from": { "type": "string" }
-          }
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "provider", "host", "user", "pass"],
+              "properties": {
+                "id": { "type": "string" },
+                "provider": { "const": "imap" },
+                "host": { "type": "string" },
+                "port": { "type": "number" },
+                "secure": { "type": "boolean" },
+                "user": { "type": "string" },
+                "pass": { "type": "string" },
+                "smtpHost": { "type": "string" },
+                "smtpPort": { "type": "number" },
+                "from": { "type": "string" }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "provider", "user", "clientId", "clientSecret", "refreshToken"],
+              "properties": {
+                "id": { "type": "string" },
+                "provider": { "const": "gmail" },
+                "user": { "type": "string" },
+                "clientId": { "type": "string" },
+                "clientSecret": { "type": "string" },
+                "refreshToken": { "type": "string" }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "provider", "user", "apiKey", "connectedAccountId"],
+              "properties": {
+                "id": { "type": "string" },
+                "provider": { "const": "composio" },
+                "user": { "type": "string" },
+                "apiKey": { "type": "string" },
+                "connectedAccountId": { "type": "string" },
+                "baseUrl": { "type": "string" }
+              }
+            }
+          ]
         }
       },
       "scanWindowDays": { "type": "number" },

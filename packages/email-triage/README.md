@@ -45,6 +45,26 @@ Put the app password in your environment as `EMAIL_APP_PASSWORD` (use an app
 password, never your login password). That's the whole setup — now ask your
 assistant *"anything urgent in my email?"*.
 
+### Other providers
+
+Instead of raw IMAP you can use a `gmail` (OAuth) or `composio` account in the same
+`accounts` array:
+
+```jsonc
+// Gmail via OAuth
+{ "id": "gmail", "provider": "gmail", "user": "you@gmail.com",
+  "clientId": "${GOOGLE_CLIENT_ID}", "clientSecret": "${GOOGLE_CLIENT_SECRET}",
+  "refreshToken": "${GOOGLE_REFRESH_TOKEN}" }
+
+// Composio (routes Gmail actions through your Composio connection)
+{ "id": "composio", "provider": "composio", "user": "you@gmail.com",
+  "apiKey": "${COMPOSIO_API_KEY}", "connectedAccountId": "${COMPOSIO_CONNECTED_ACCOUNT_ID}" }
+```
+
+> The Composio adapter's action names/response shapes follow Composio's documented
+> `GMAIL_*` actions but have not been verified against a live connection yet —
+> prefer `imap` or `gmail` for now.
+
 ## Tools
 
 | Tool | What it does |
