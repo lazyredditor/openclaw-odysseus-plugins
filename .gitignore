@@ -1,5 +1,7 @@
 node_modules/
 dist/
+!packages/email-triage/dist/
+!packages/email-triage/dist/**
 *.log
 .env
 .env.*
