@@ -1,0 +1,11 @@
+{
+  "name": "openclaw-odysseus-plugins",
+  "owner": { "name": "lazyredditor" },
+  "plugins": [
+    {
+      "name": "email-triage",
+      "source": "./packages/email-triage",
+      "description": "Triage unread email from OpenClaw — urgency, tags, spam, summaries, and style-matched draft replies. Ported from Odysseus."
+    }
+  ]
+}
