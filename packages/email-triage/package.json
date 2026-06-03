@@ -1,6 +1,17 @@
 {
   "name": "openclaw-email-triage",
   "version": "0.1.0",
+  "description": "Triage unread email from OpenClaw — urgency, tags, spam, summaries, and style-matched draft replies. Ported from Odysseus.",
+  "license": "MIT",
+  "author": "lazyredditor",
+  "homepage": "https://github.com/lazyredditor/openclaw-odysseus-plugins/tree/main/packages/email-triage",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazyredditor/openclaw-odysseus-plugins.git",
+    "directory": "packages/email-triage"
+  },
+  "keywords": ["openclaw", "openclaw-plugin", "email", "triage", "imap", "gmail"],
+  "publishConfig": { "access": "public" },
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
@@ -15,7 +26,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "@googleapis/gmail": "^17.0.0",
