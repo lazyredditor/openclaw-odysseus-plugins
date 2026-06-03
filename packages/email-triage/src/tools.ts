@@ -1,7 +1,9 @@
+import { join } from "node:path";
 import { Type } from "typebox";
 import { textResult, jsonResult } from "openclaw/plugin-sdk/agent-runtime";
 import { makeProvider } from "./providers/factory.js";
-import { makeTriageState, type KeyedStore } from "./state.js";
+import { makeTriageState } from "./state.js";
+import { fileKeyedStore } from "./store.js";
 import { triageInbox } from "./engine/triage.js";
 import { draftReply, sendReply } from "./engine/reply.js";
 import { extractStyle } from "./engine/style.js";
@@ -14,20 +16,9 @@ import type { Mail } from "./providers/types.js";
 // `api` is OpenClaw's plugin API (loosely typed here to avoid importing the full
 // SDK surface). All calls below match the verified openclaw@2026.5.x contract.
 export function registerTools(api: any, cfg: Config): void {
-  // Adapt OpenClaw's register/lookup/delete keyed store to our get/set/delete shape.
-  const raw = api.runtime.state.openKeyedStore({ namespace: "email-triage", maxEntries: 5000 });
-  const store: KeyedStore = {
-    async get(k) {
-      return raw.lookup(k);
-    },
-    async set(k, v) {
-      await raw.delete(k);
-      await raw.register(k, v);
-    },
-    async delete(k) {
-      await raw.delete(k);
-    },
-  };
+  // File-backed state under the host state dir (openKeyedStore is trusted-only).
+  const baseDir: string = api.runtime.state.resolveStateDir();
+  const store = fileKeyedStore(join(baseDir, "email-triage", "state.json"));
   const state = makeTriageState(store);
 
   // Host LLM. NO model is passed unless the operator explicitly pinned one in
