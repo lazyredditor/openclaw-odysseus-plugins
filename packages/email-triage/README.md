@@ -10,6 +10,14 @@ on a stock OpenClaw install with no source patches.
 
 ## Install (one command)
 
+From the public marketplace repo (works today — verified on OpenClaw 2026.5.28):
+
+```bash
+openclaw plugins install email-triage --marketplace lazyredditor/openclaw-odysseus-plugins
+```
+
+Or, once published to npm:
+
 ```bash
 openclaw plugins install npm:openclaw-email-triage
 ```
