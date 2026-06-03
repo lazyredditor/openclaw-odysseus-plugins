@@ -10,8 +10,17 @@
     "url": "git+https://github.com/lazyredditor/openclaw-odysseus-plugins.git",
     "directory": "packages/email-triage"
   },
-  "keywords": ["openclaw", "openclaw-plugin", "email", "triage", "imap", "gmail"],
-  "publishConfig": { "access": "public" },
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "email",
+    "triage",
+    "imap",
+    "gmail"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "exports": {
@@ -24,10 +33,10 @@
     "docs"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "esbuild index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:openclaw --external:openclaw/* --log-level=warning",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "prepublishOnly": "tsc -p tsconfig.json"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@googleapis/gmail": "^17.0.0",
@@ -42,6 +51,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/nodemailer": "^6.4.15",
+    "esbuild": "^0.28.0",
     "openclaw": "2026.5.28",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
